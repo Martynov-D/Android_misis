@@ -1,19 +1,21 @@
 package com.example.simplecalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
 public class MainActivity extends AppCompatActivity
 {
-    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonDot, buttonAdd, buttonSub, buttonDiv, buttonMul, buttonEqual, buttonC;
+    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonDot, buttonAdd, buttonSub, buttonDiv, buttonMul, buttonEqual, buttonC, buttonSquare, buttonSin;
     EditText simpleEditText;
 
     float mValueOne, mValueTwo;
 
-    boolean mAddition, mSubtraction, mDivision, mMultilpication;
+    boolean mAddition, mSubtraction, mDivision, mMultilpication, mIsFloat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,16 +38,28 @@ public class MainActivity extends AppCompatActivity
         buttonSub = (Button) findViewById(R.id.buttonSub);
         buttonDiv = (Button) findViewById(R.id.buttonDiv);
         buttonMul = (Button) findViewById(R.id.buttonMul);
+        buttonSquare = (Button) findViewById(R.id.buttonSquare);
+        buttonSin = (Button) findViewById(R.id.buttonSin);
         buttonEqual = (Button) findViewById(R.id.buttonEqual);
         buttonC = (Button) findViewById(R.id.buttonC);
         simpleEditText = (EditText) findViewById(R.id.edt1);
+        simpleEditText.setText("");
+
+        mValueOne = 0;
+        mValueTwo = 0;
+        mAddition = false;
+        mSubtraction = false;
+        mDivision = false;
+        mMultilpication = false;
+
+        mIsFloat = false;
 
         button1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "1");
+                buttonClickLogic(v, "1");
             }
         });
         button2.setOnClickListener(new View.OnClickListener()
@@ -53,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "2");
+                buttonClickLogic(v, "2");
             }
         });
         button3.setOnClickListener(new View.OnClickListener()
@@ -61,7 +75,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "3");
+                buttonClickLogic(v, "3");
             }
         });
         button4.setOnClickListener(new View.OnClickListener()
@@ -69,7 +83,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "4");
+                buttonClickLogic(v, "4");
             }
         });
         button5.setOnClickListener(new View.OnClickListener()
@@ -77,7 +91,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "5");
+                buttonClickLogic(v, "5");
             }
         });
         button6.setOnClickListener(new View.OnClickListener()
@@ -85,7 +99,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "6");
+                buttonClickLogic(v, "6");
             }
         });
         button7.setOnClickListener(new View.OnClickListener()
@@ -93,7 +107,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "7");
+                buttonClickLogic(v, "7");
             }
         });
         button8.setOnClickListener(new View.OnClickListener()
@@ -101,7 +115,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "8");
+                buttonClickLogic(v, "8");
             }
         });
         button9.setOnClickListener(new View.OnClickListener()
@@ -109,7 +123,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "9");
+                buttonClickLogic(v, "9");
             }
         });
         button0.setOnClickListener(new View.OnClickListener()
@@ -117,30 +131,29 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + "0");
+                buttonClickLogic(v, "0");
             }
         });
+
         buttonDot.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                simpleEditText.setText(simpleEditText.getText() + ".");
+                if (!mIsFloat)
+                {
+                    simpleEditText.setText(simpleEditText.getText() + ".");
+                    mIsFloat = true;
+                }
             }
         });
+
         buttonAdd.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (simpleEditText == null)
-                    simpleEditText.setText("");
-                else
-                {
-                    mValueOne = Float.parseFloat(simpleEditText.getText() + "");
-                    mAddition = true;
-                    simpleEditText.setText(null);
-                }
+                mathOperatorLogic(v, "+");
             }
         });
         buttonSub.setOnClickListener(new View.OnClickListener()
@@ -148,10 +161,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                mValueOne = Float.parseFloat(simpleEditText.getText() + "");
-                mSubtraction = true;
-                simpleEditText.setText(null);
-
+                mathOperatorLogic(v, "-");
             }
         });
         buttonMul.setOnClickListener(new View.OnClickListener()
@@ -159,10 +169,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                mValueOne = Float.parseFloat(simpleEditText.getText() + "");
-                mMultilpication = true;
-                simpleEditText.setText(null);
-
+                mathOperatorLogic(v, "*");
             }
         });
         buttonDiv.setOnClickListener(new View.OnClickListener()
@@ -170,9 +177,22 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                mValueOne = Float.parseFloat(simpleEditText.getText() + "");
-                mDivision = true;
-                simpleEditText.setText(null);
+                mathOperatorLogic(v, "/");
+            }
+        });
+        buttonSin.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+        buttonSquare.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
 
             }
         });
@@ -181,36 +201,90 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                mValueTwo = Float.parseFloat(simpleEditText.getText() + "");
-                if(mAddition == true)
+                if(mValueOne!=0)
                 {
-                    simpleEditText.setText(mValueOne + mValueTwo + "");
-                    mAddition = false;
-                }
-                if(mSubtraction == true)
-                {
-                    simpleEditText.setText(mValueOne - mValueTwo + "");
-                    mSubtraction = false;
-                }
-                if(mMultilpication == true)
-                {
-                    simpleEditText.setText(mValueOne*mValueTwo + "");
-                    mMultilpication = false;
-                }
-                if(mDivision == true)
-                {
-                    simpleEditText.setText(mValueOne/mValueTwo + "");
-                    mDivision = false;
+                    equalLogic(v);
+                    simpleEditText.setText(String.valueOf(mValueOne));
                 }
             }
         });
+
         buttonC.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                mValueOne = 0;
+                mValueTwo = 0;
+                mAddition = false;
+                mSubtraction = false;
+                mDivision = false;
+                mMultilpication = false;
+                mIsFloat = false;
                 simpleEditText.setText("");
             }
         });
+    }
+
+    void equalLogic(View v)
+    {
+        if (mAddition)
+        {
+            mValueTwo = Float.parseFloat(simpleEditText.getText().toString());
+            mValueOne = mValueOne + mValueTwo;
+            mAddition = false;
+        }
+        else if (mSubtraction)
+        {
+            mValueTwo = Float.parseFloat(simpleEditText.getText().toString());
+            mValueOne = mValueOne - mValueTwo;
+            mSubtraction = false;
+        }
+        else if (mMultilpication)
+        {
+            mValueTwo = Float.parseFloat(simpleEditText.getText().toString());
+            mValueOne = mValueOne * mValueTwo;
+            mMultilpication = false;
+        }
+        else if (mDivision)
+        {
+            mValueTwo = Float.parseFloat(simpleEditText.getText().toString());
+            mValueOne = mValueOne / mValueTwo;
+            mDivision = false;
+        }
+
+    }
+
+    void buttonClickLogic(View v, String number)
+    {
+        simpleEditText.setText(simpleEditText.getText() + number);
+    }
+
+    void mathOperatorLogic(View v, String operator)
+    {
+        if (mAddition || mSubtraction || mMultilpication|| mDivision)
+        {
+            mValueTwo = Float.parseFloat(simpleEditText.getText().toString());
+            equalLogic(v);
+            mAddition = false;
+            mSubtraction = false;
+            mDivision = false;
+            mMultilpication = false;
+        }
+        switch(operator)
+        {
+            case("+"): mAddition = true; break;
+            case("-"): mSubtraction = true; break;
+            case("*"): mMultilpication = true; break;
+            case("/"): mDivision= true; break;
+        }
+
+        if (mValueOne == 0)
+        {
+            if (simpleEditText.getText()!=null)
+                mValueOne = Float.parseFloat(simpleEditText.getText().toString());
+        }
+        simpleEditText.setText(null);
+        mIsFloat = false;
     }
 }
