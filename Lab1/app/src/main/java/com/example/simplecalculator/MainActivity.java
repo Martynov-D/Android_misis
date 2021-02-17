@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import java.lang.Math;
 
 
 public class MainActivity extends AppCompatActivity
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity
     Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonDot, buttonAdd, buttonSub, buttonDiv, buttonMul, buttonEqual, buttonC, buttonSquare, buttonSin;
     EditText simpleEditText;
 
-    float mValueOne, mValueTwo;
+    double mValueOne, mValueTwo;
 
     boolean mAddition, mSubtraction, mDivision, mMultilpication, mIsFloat;
 
@@ -185,7 +186,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                if (mValueOne == 0)
+                {
+                    if (simpleEditText.getText()!=null)
+                        mValueOne = Math.sin(Math.toRadians(Double.parseDouble(simpleEditText.getText().toString())));
+                }
+                mIsFloat = true;
+                simpleEditText.setText(String.valueOf(mValueOne));
             }
         });
         buttonSquare.setOnClickListener(new View.OnClickListener()
@@ -193,7 +200,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                if (mValueOne == 0)
+                {
+                    if (simpleEditText.getText()!=null)
+                        mValueOne = Math.pow(Double.parseDouble(simpleEditText.getText().toString()), 2);
+                }
+                mIsFloat = true;
+                simpleEditText.setText(String.valueOf(mValueOne));
             }
         });
         buttonEqual.setOnClickListener(new View.OnClickListener()
