@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MultiWindowTest</string>
+    <string name="test_bar">Test</string>
+    <string name="test_button">Pass Test</string>
+</resources>
