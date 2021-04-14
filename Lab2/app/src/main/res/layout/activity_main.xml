@@ -10,6 +10,7 @@
         android:id="@+id/mainTextView"
         android:layout_width="364dp"
         android:layout_height="186dp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"

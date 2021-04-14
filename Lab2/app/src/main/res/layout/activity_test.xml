@@ -11,6 +11,7 @@
         android:layout_width="251dp"
         android:layout_height="155dp"
         android:layout_marginTop="40dp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +21,9 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="250dp"
+        android:onClick="b1onClick"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginEnd="60dp"
+        android:onClick="b2onClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,8 +41,9 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginBottom="350dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="330dp"
+        android:onClick="b3onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -47,8 +51,10 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="350dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="330dp"
+        android:onClick="b4onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
