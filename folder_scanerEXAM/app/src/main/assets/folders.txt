@@ -1,0 +1,2 @@
+/storage/self/primary/Android/media
+/data/data/com.example.folder_scanerexam
